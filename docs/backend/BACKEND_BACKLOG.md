@@ -13,6 +13,10 @@
 ```text
 ## Workflow de Ejecución
 
+OK, vamos a iniciar esta nueva tarea del backend.
+
+Tarea: TASK-X.Y: [Pega aquí la descripción detallada de la tarea del BACKEND_BACKLOG.md]
+
 **Autonomía Total:** Ejecuta la tarea de principio a fin sin solicitar confirmaciones.
 
 **Rama:** Estás en `develop`. Crea la rama `feature/TASK-B-XXX-descripcion` (usa nomenclatura gitflow) y trabaja en ella.
