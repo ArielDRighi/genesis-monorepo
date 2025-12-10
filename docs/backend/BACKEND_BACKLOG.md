@@ -45,6 +45,7 @@ Sigue un ciclo TDD riguroso:
 ## Ciclo de Calidad (Pre-Commit)
 
 Al finalizar la implementación:
+0. Ejecuta `npm run check:governance` (Validar reglas de arquitectura)
 1. Ejecuta `npm run lint` y `npm run format`
 2. Ejecuta `npm run build` (debe compilar sin errores)
 3. Ejecuta `npm run test` (todos los tests deben pasar)
