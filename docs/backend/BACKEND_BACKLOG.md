@@ -23,7 +23,7 @@ Tarea: TASK-X.Y: [Pega aquí la descripción detallada de la tarea del BACKEND_B
 
 ## Arquitectura y Patrones (CRÍTICO)
 
-- **LEE PRIMERO:** `docs/backend/ARCHITECTURE.md` y `docs/backend/AI_DEVELOPMENT_GUIDE.md` para entender la arquitectura del proyecto.
+- **LEE PRIMERO:** `docs/backend/ARCHITECTURE.md` y `docs/backend/NAMING_CONVENTIONS.md` para entender la arquitectura del proyecto.
 - **Feature-based Architecture:** Seguimos la arquitectura recomendada por NestJS: módulos por feature, estructura plana.
 - **Módulos NestJS:** Cada feature tiene su módulo en `src/modules/` (auth, users, projects, stories, tasks, billing, ai).
 - **Regla de Complejidad:**
