@@ -71,7 +71,7 @@ Al finalizar la implementación:
 **Prioridad:** 🔴 CRÍTICA  
 **Estimación:** 3 horas  
 **Dependencias:** Ninguna  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADA  
 **HU Relacionada:** Configuración Inicial  
 **Marcador MVP:** ⭐⭐ **FUNDACIONAL**
 
@@ -83,7 +83,7 @@ Crear un **monorepo** que contendrá tanto el backend (NestJS) como el frontend 
 
 **Tests necesarios:**
 
-- [ ] **Tests unitarios:**
+- [x] **Tests unitarios:**
   - La aplicación inicia correctamente (`app.listen`)
   - Los path aliases resuelven correctamente
   - El health check endpoint responde 200
@@ -92,7 +92,7 @@ Crear un **monorepo** que contendrá tanto el backend (NestJS) como el frontend 
 
 #### ✅ Tareas específicas
 
-- [ ] Crear estructura de monorepo:
+- [x] Crear estructura de monorepo:
   ```
   genesis/
   ├── apps/
@@ -103,30 +103,30 @@ Crear un **monorepo** que contendrá tanto el backend (NestJS) como el frontend 
   ├── turbo.json      ← Configuración de Turborepo (opcional)
   └── .gitignore
   ```
-- [ ] Configurar npm/pnpm workspaces en `package.json` raíz
-- [ ] Crear proyecto NestJS en `apps/backend` con `nest new . --strict`
-- [ ] Configurar TypeScript con modo estricto (`strict: true`, `noImplicitAny: true`)
-- [ ] Configurar path aliases en `tsconfig.json`:
+- [x] Configurar npm/pnpm workspaces en `package.json` raíz
+- [x] Crear proyecto NestJS en `apps/backend` con `nest new . --strict`
+- [x] Configurar TypeScript con modo estricto (`strict: true`, `noImplicitAny: true`)
+- [x] Configurar path aliases en `tsconfig.json`:
   - `@modules/*` → `src/modules/*`
   - `@common/*` → `src/common/*`
   - `@config/*` → `src/config/*`
-- [ ] Crear estructura de carpetas feature-based (NestJS standard):
+- [x] Crear estructura de carpetas feature-based (NestJS standard):
   - `src/modules/` - Un módulo por feature: auth, users, projects, stories, tasks, billing, ai
     - Cada módulo contiene: `*.module.ts`, `*.controller.ts`, `*.service.ts`, `dto/`, `entities/`
   - `src/common/` - Código compartido: guards, filters, interceptors, decorators, pipes
   - `src/config/` - Archivos de configuración
   - `src/database/` - Migraciones y seeds
-- [ ] Configurar scripts en `package.json` del backend (start:dev, build, test, test:e2e, migration:\*)
-- [ ] Crear endpoint health check GET `/health`
+- [x] Configurar scripts en `package.json` del backend (start:dev, build, test, test:e2e, migration:\*)
+- [x] Crear endpoint health check GET `/health`
 
 #### 🎯 Criterios de aceptación
 
-- [ ] Monorepo configurado con workspaces funcionales
-- [ ] `npm run start:dev` desde `apps/backend` levanta el servidor sin errores
-- [ ] `npm run build` compila sin errores ni warnings
-- [ ] Path aliases funcionan en imports
-- [ ] GET `/health` retorna `{ status: 'ok' }`
-- [ ] Estructura lista para agregar frontend en `apps/frontend`
+- [x] Monorepo configurado con workspaces funcionales
+- [x] `npm run start:dev` desde `apps/backend` levanta el servidor sin errores
+- [x] `npm run build` compila sin errores ni warnings
+- [x] Path aliases funcionan en imports
+- [x] GET `/health` retorna `{ status: 'ok' }`
+- [x] Estructura lista para agregar frontend en `apps/frontend`
 
 ---
 
