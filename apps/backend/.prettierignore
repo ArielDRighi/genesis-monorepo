@@ -1,0 +1,9 @@
+cat > .prettierignore << 'EOF'
+dist
+coverage
+node_modules
+*.log
+.env
+.env.*
+.env.test
+EOF

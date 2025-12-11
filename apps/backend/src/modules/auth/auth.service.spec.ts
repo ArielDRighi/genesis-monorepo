@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  ConflictException,
-  UnauthorizedException,
-  BadRequestException,
-} from '@nestjs/common';
+import { ConflictException, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
@@ -125,9 +121,7 @@ describe('AuthService', () => {
         email: registerDto.email,
       } as User);
 
-      await expect(service.register(registerDto)).rejects.toThrow(
-        ConflictException,
-      );
+      await expect(service.register(registerDto)).rejects.toThrow(ConflictException);
       expect(mockUserRepository.findOne).toHaveBeenCalledWith({
         where: { email: registerDto.email },
       });
@@ -142,9 +136,7 @@ describe('AuthService', () => {
 
       // Esta validación debe ser manejada por el DTO validator antes de llegar al servicio
       // Pero podemos agregar una verificación adicional en el servicio por seguridad
-      await expect(service.register(invalidDto)).rejects.toThrow(
-        BadRequestException,
-      );
+      await expect(service.register(invalidDto)).rejects.toThrow(BadRequestException);
     });
 
     it('should hash password with bcrypt (never store plain password)', async () => {
@@ -205,10 +197,7 @@ describe('AuthService', () => {
       expect(mockUserRepository.findOne).toHaveBeenCalledWith({
         where: { email: loginDto.email },
       });
-      expect(bcrypt.compare).toHaveBeenCalledWith(
-        loginDto.password,
-        mockUser.password,
-      );
+      expect(bcrypt.compare).toHaveBeenCalledWith(loginDto.password, mockUser.password);
       expect(mockJwtService.sign).toHaveBeenCalledWith({
         sub: mockUser.id,
         email: mockUser.email,
@@ -229,9 +218,7 @@ describe('AuthService', () => {
     it('should throw UnauthorizedException if user not found', async () => {
       mockUserRepository.findOne.mockResolvedValue(null);
 
-      await expect(service.login(loginDto)).rejects.toThrow(
-        UnauthorizedException,
-      );
+      await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
       expect(mockUserRepository.findOne).toHaveBeenCalledWith({
         where: { email: loginDto.email },
       });
@@ -241,13 +228,8 @@ describe('AuthService', () => {
       mockUserRepository.findOne.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
-      await expect(service.login(loginDto)).rejects.toThrow(
-        UnauthorizedException,
-      );
-      expect(bcrypt.compare).toHaveBeenCalledWith(
-        loginDto.password,
-        mockUser.password,
-      );
+      await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
+      expect(bcrypt.compare).toHaveBeenCalledWith(loginDto.password, mockUser.password);
     });
   });
 

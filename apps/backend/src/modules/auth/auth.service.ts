@@ -25,9 +25,7 @@ export class AuthService {
 
     // Validación adicional de password
     if (password.length < 8) {
-      throw new BadRequestException(
-        'Password must be at least 8 characters long',
-      );
+      throw new BadRequestException('Password must be at least 8 characters long');
     }
 
     // Verificar si el email ya existe

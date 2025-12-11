@@ -78,10 +78,7 @@ describe('Auth E2E Tests', () => {
       };
 
       // Primer registro
-      await request(app.getHttpServer())
-        .post('/auth/register')
-        .send(registerDto)
-        .expect(201);
+      await request(app.getHttpServer()).post('/auth/register').send(registerDto).expect(201);
 
       // Segundo registro con el mismo email
       const response = await request(app.getHttpServer())
@@ -114,10 +111,7 @@ describe('Auth E2E Tests', () => {
         password: 'password123',
       };
 
-      await request(app.getHttpServer())
-        .post('/auth/register')
-        .send(registerDto)
-        .expect(400);
+      await request(app.getHttpServer()).post('/auth/register').send(registerDto).expect(400);
     });
   });
 
@@ -181,12 +175,10 @@ describe('Auth E2E Tests', () => {
 
     beforeEach(async () => {
       // Registrar un usuario y obtener el token
-      const response = await request(app.getHttpServer())
-        .post('/auth/register')
-        .send({
-          email: 'profile@example.com',
-          password: 'password123',
-        });
+      const response = await request(app.getHttpServer()).post('/auth/register').send({
+        email: 'profile@example.com',
+        password: 'password123',
+      });
 
       accessToken = response.body.access_token;
     });

@@ -27,7 +27,10 @@
     "migration:revert": "npm run typeorm -- migration:revert",
     "migration:show": "npm run typeorm -- migration:show",
     "migration:test:run": "npm run typeorm:test -- migration:run",
-    "migration:test:revert": "npm run typeorm:test -- migration:revert"
+    "migration:test:revert": "npm run typeorm:test -- migration:revert",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run lint && npm run typecheck && npm run test:cov && npm run build"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
