@@ -21,10 +21,13 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "npx typeorm-ts-node-commonjs -d src/database/data-source.ts",
+    "typeorm:test": "npx typeorm-ts-node-commonjs -d src/database/data-source-test.ts",
     "migration:generate": "npm run typeorm -- migration:generate",
     "migration:run": "npm run typeorm -- migration:run",
     "migration:revert": "npm run typeorm -- migration:revert",
-    "migration:show": "npm run typeorm -- migration:show"
+    "migration:show": "npm run typeorm -- migration:show",
+    "migration:test:run": "npm run typeorm:test -- migration:run",
+    "migration:test:revert": "npm run typeorm:test -- migration:revert"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
