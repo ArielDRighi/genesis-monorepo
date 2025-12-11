@@ -85,7 +85,7 @@ Al finalizar las correcciones:
 
 ## Finalización
 
-1. Crea el commit siguiendo Conventional Commits: 
+1. Crea el commit siguiendo Conventional Commits:
    - `fix(module): descripción de la corrección` (para bugs)
    - `refactor(module): descripción` (para mejoras de código)
    - `docs(module): descripción` (para documentación)
@@ -102,12 +102,13 @@ Al finalizar las correcciones:
 
 ### Commit: `[hash corto]`
 
-| # | Comentario | Acción Tomada | Archivo |
-|---|------------|---------------|---------|
-| 1 | [Resumen del comentario] | [Qué se hizo] | `path/to/file.ts` |
-| 2 | ... | ... | ... |
+| #   | Comentario               | Acción Tomada | Archivo           |
+| --- | ------------------------ | ------------- | ----------------- |
+| 1   | [Resumen del comentario] | [Qué se hizo] | `path/to/file.ts` |
+| 2   | ...                      | ...           | ...               |
 
 ### Notas adicionales:
+
 - [Cualquier decisión técnica relevante]
 - [Dudas o puntos pendientes de discusión]
 ```
