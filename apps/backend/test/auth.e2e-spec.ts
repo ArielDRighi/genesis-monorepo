@@ -18,11 +18,11 @@ describe('Auth E2E Tests', () => {
       imports: [
         TypeOrmModule.forRoot({
           type: 'postgres',
-          host: process.env.DB_HOST || 'localhost',
-          port: parseInt(process.env.DB_PORT || '5432', 10),
-          username: process.env.DB_USERNAME || 'postgres',
-          password: process.env.DB_PASSWORD || 'postgres',
-          database: process.env.DB_NAME || 'genesis_testing_db',
+          host: process.env.DATABASE_HOST || process.env.DB_HOST || 'localhost',
+          port: parseInt(process.env.DATABASE_PORT || process.env.DB_PORT || '5432', 10),
+          username: process.env.DATABASE_USER || process.env.DB_USERNAME || 'postgres',
+          password: process.env.DATABASE_PASSWORD || process.env.DB_PASSWORD || 'postgres',
+          database: process.env.DATABASE_NAME || process.env.DB_NAME || 'genesis_testing_db',
           entities: [User],
           synchronize: true,
           dropSchema: true,
