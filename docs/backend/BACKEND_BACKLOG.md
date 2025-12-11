@@ -62,7 +62,6 @@ Al finalizar la implementación:
 
 1. Actualiza este documento marcando la tarea como ✅ COMPLETADO
 2. Crea el commit siguiendo Conventional Commits: `feat(module): descripción`
-3. Push a la rama y crea PR hacia `develop`
 ```
 
 ---
@@ -140,7 +139,7 @@ Crear un **monorepo** que contendrá tanto el backend (NestJS) como el frontend 
 **Prioridad:** 🔴 CRÍTICA  
 **Estimación:** 3 horas  
 **Dependencias:** TASK-B-001  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADO  
 **HU Relacionada:** Configuración Inicial  
 **Marcador MVP:** ⭐⭐ **FUNDACIONAL**
 
@@ -152,7 +151,7 @@ Configurar PostgreSQL en Docker para desarrollo local, integrar TypeORM, crear l
 
 **Tests necesarios:**
 
-- [ ] **Tests unitarios:**
+- [x] **Tests unitarios:**
   - Conexión a base de datos exitosa
   - Entidad User se crea correctamente con todos los campos
   - Migración se ejecuta sin errores
@@ -161,19 +160,19 @@ Configurar PostgreSQL en Docker para desarrollo local, integrar TypeORM, crear l
 
 #### ✅ Tareas específicas
 
-- [ ] Crear `docker-compose.yml` en raíz del monorepo con servicio PostgreSQL:
+- [x] Crear `docker-compose.yml` en raíz del monorepo con servicio PostgreSQL:
   - Imagen: `postgres:16-alpine`
-  - Puerto: `5432:5432`
+  - Puerto: `5434:5432` (evita conflictos con otros contenedores)
   - Volume para persistencia: `genesis_postgres_data`
   - Variables: `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
-- [ ] Agregar scripts en `package.json` raíz:
+- [x] Agregar scripts en `package.json` raíz:
   - `db:up` → `docker-compose up -d postgres`
   - `db:down` → `docker-compose down`
   - `db:logs` → `docker-compose logs -f postgres`
-- [ ] Instalar dependencias: `@nestjs/typeorm`, `typeorm`, `pg`, `@nestjs/config`
-- [ ] Crear `src/config/database.config.ts` con configuración desde variables de entorno
-- [ ] Configurar `TypeOrmModule.forRootAsync()` en `app.module.ts`
-- [ ] Crear entidad `User` con campos:
+- [x] Instalar dependencias: `@nestjs/typeorm`, `typeorm`, `pg`, `@nestjs/config`
+- [x] Crear `src/config/database.config.ts` con configuración desde variables de entorno
+- [x] Configurar `TypeOrmModule.forRootAsync()` en `app.module.ts`
+- [x] Crear entidad `User` con campos:
   - `id` (UUID, primary)
   - `email` (string, unique)
   - `password` (string, hashed)
@@ -184,17 +183,17 @@ Configurar PostgreSQL en Docker para desarrollo local, integrar TypeORM, crear l
   - `quota_reset_date` (timestamp, nullable)
   - `has_completed_onboarding` (boolean, default false)
   - `created_at`, `updated_at` (timestamps)
-- [ ] Crear archivo `data-source.ts` para CLI de TypeORM
-- [ ] Generar migración inicial con la tabla `users`
-- [ ] Crear archivo `.env.example` con variables de base de datos
+- [x] Crear archivo `data-source.ts` para CLI de TypeORM
+- [x] Generar migración inicial con la tabla `users`
+- [x] Crear archivo `.env.example` con variables de base de datos
 
 #### 🎯 Criterios de aceptación
 
-- [ ] `npm run db:up` levanta PostgreSQL en Docker
-- [ ] `npm run migration:run` ejecuta sin errores
-- [ ] Tabla `users` existe en PostgreSQL con todos los campos
-- [ ] La aplicación conecta a la BD al iniciar
-- [ ] `.env.example` documenta todas las variables requeridas
+- [x] `npm run db:up` levanta PostgreSQL en Docker
+- [x] `npm run migration:run` ejecuta sin errores
+- [x] Tabla `users` existe en PostgreSQL con todos los campos
+- [x] La aplicación conecta a la BD al iniciar
+- [x] `.env.example` documenta todas las variables requeridas
 
 ---
 
