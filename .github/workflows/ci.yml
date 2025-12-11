@@ -1,288 +1,257 @@
 name: Backend CI
 
 on:
-    push:
-        branches:
-            - develop
-            - main
-        paths:
-            - "apps/backend/**"
-            - ".github/workflows/ci.yml"
-    pull_request:
-        branches:
-            - develop
-            - main
-        paths:
-            - "apps/backend/**"
-            - ".github/workflows/ci.yml"
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - "apps/backend/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - "apps/backend/**"
+      - ".github/workflows/ci.yml"
 
 # Cancela workflows en progreso si hay nuevo push a la misma branch
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
-    NODE_VERSION: "20.x"
-    PNPM_VERSION: "8.15.0"
+  NODE_VERSION: "20.x"
 
 jobs:
-    # Job 1: Linting
-    lint:
-        name: 🔍 Lint Code
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
+  # Job 1: Linting
+  lint:
+    name: 🔍 Lint Code
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: 🔍 Run ESLint
+        run: npm run lint
 
-            - name: 🔍 Run ESLint
-              run: pnpm run lint
+      - name: 💅 Check Prettier formatting
+        run: npm run format:check
 
-            - name: 💅 Check Prettier formatting
-              run: pnpm run format:check
+  # Job 2: Unit Tests
+  test-unit:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-    # Job 2: Unit Tests
-    test-unit:
-        name: 🧪 Unit Tests
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+      - name: 🧪 Run unit tests
+        run: npm run test:cov
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: 📊 Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./apps/backend/coverage/lcov.info
+          flags: backend-unit
+          name: backend-unit-tests
+          fail_ci_if_error: false
 
-            - name: 🧪 Run unit tests
-              run: pnpm run test:cov
+  # Job 3: E2E Tests
+  test-e2e:
+    name: 🔗 E2E Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-            - name: 📊 Upload coverage to Codecov
-              uses: codecov/codecov-action@v3
-              with:
-                  files: ./apps/backend/coverage/lcov.info
-                  flags: backend-unit
-                  name: backend-unit-tests
-                  fail_ci_if_error: false
-
-    # Job 3: E2E Tests
-    test-e2e:
-        name: 🔗 E2E Tests
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
-
-        # Service container para PostgreSQL
-        services:
-            postgres:
-                image: postgres:16-alpine
-                env:
-                    POSTGRES_USER: genesis_test
-                    POSTGRES_PASSWORD: test_password
-                    POSTGRES_DB: genesis_test
-                ports:
-                    - 5432:5432
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-
+    # Service container para PostgreSQL
+    services:
+      postgres:
+        image: postgres:16-alpine
         env:
-            # Variables de entorno para tests E2E
-            NODE_ENV: test
-            DATABASE_HOST: localhost
-            DATABASE_PORT: 5432
-            DATABASE_USER: genesis_test
-            DATABASE_PASSWORD: test_password
-            DATABASE_NAME: genesis_test
-            JWT_SECRET: test_jwt_secret_min_32_characters_long_for_security
-            JWT_EXPIRATION: 7d
-            ANTHROPIC_API_KEY: test_key
-            STRIPE_SECRET_KEY: sk_test_fake_key
-            STRIPE_WEBHOOK_SECRET: whsec_test_fake_secret
-            FRONTEND_URL: http://localhost:3001
+          POSTGRES_USER: genesis_test
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: genesis_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+    env:
+      # Variables de entorno para tests E2E
+      NODE_ENV: test
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
+      DATABASE_USER: genesis_test
+      DATABASE_PASSWORD: test_password
+      DATABASE_NAME: genesis_test
+      JWT_SECRET: test_jwt_secret_min_32_characters_long_for_security
+      JWT_EXPIRATION: 7d
+      ANTHROPIC_API_KEY: test_key
+      STRIPE_SECRET_KEY: sk_test_fake_key
+      STRIPE_WEBHOOK_SECRET: whsec_test_fake_secret
+      FRONTEND_URL: http://localhost:3001
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 🗄️ Run database migrations
-              run: pnpm run migration:run
+      - name: 🗄️ Run database migrations
+        run: npm run migration:run
 
-            - name: 🔗 Run E2E tests
-              run: pnpm run test:e2e
+      - name: 🔗 Run E2E tests
+        run: npm run test:e2e
 
-            - name: 📊 Upload E2E coverage
-              uses: codecov/codecov-action@v3
-              with:
-                  files: ./apps/backend/coverage-e2e/lcov.info
-                  flags: backend-e2e
-                  name: backend-e2e-tests
-                  fail_ci_if_error: false
+      - name: 📊 Upload E2E coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./apps/backend/coverage-e2e/lcov.info
+          flags: backend-e2e
+          name: backend-e2e-tests
+          fail_ci_if_error: false
 
-    # Job 4: Build
-    build:
-        name: 🏗️ Build Application
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
+  # Job 4: Build
+  build:
+    name: 🏗️ Build Application
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
+      - name: 🏗️ Build application
+        run: npm run build
 
-            - name: 🏗️ Build application
-              run: pnpm run build
+      - name: 📦 Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-dist
+          path: apps/backend/dist
+          retention-days: 7
 
-            - name: 📦 Upload build artifacts
-              uses: actions/upload-artifact@v3
-              with:
-                  name: backend-dist
-                  path: apps/backend/dist
-                  retention-days: 7
+  # Job 5: Security Audit
+  security:
+    name: 🔒 Security Audit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-    # Job 5: Security Audit
-    security:
-        name: 🔒 Security Audit
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+      - name: 🔒 Run security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
+  # Job 6: TypeScript Type Check
+  typecheck:
+    name: 📝 TypeScript Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
 
-            - name: 🔒 Run security audit
-              run: pnpm audit --audit-level=high
-              continue-on-error: true
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
 
-    # Job 6: TypeScript Type Check
-    typecheck:
-        name: 📝 TypeScript Check
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: apps/backend
+      - name: � Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "apps/backend/package-lock.json"
 
-        steps:
-            - name: 📥 Checkout code
-              uses: actions/checkout@v4
+      - name: 📚 Install dependencies
+        run: npm ci
 
-            - name: 📦 Setup pnpm
-              uses: pnpm/action-setup@v2
-              with:
-                  version: ${{ env.PNPM_VERSION }}
+      - name: 📝 Run TypeScript compiler check
+        run: npm run build -- --noEmit
 
-            - name: 🟢 Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: "pnpm"
-                  cache-dependency-path: "apps/backend/pnpm-lock.yaml"
+  # Job final: Status Check (requerido para merge)
+  ci-success:
+    name: ✅ CI Success
+    runs-on: ubuntu-latest
+    needs: [lint, test-unit, test-e2e, build, security, typecheck]
+    if: always()
 
-            - name: 📚 Install dependencies
-              run: pnpm install --frozen-lockfile
-
-            - name: 📝 Run TypeScript compiler check
-              run: pnpm run build --noEmit
-
-    # Job final: Status Check (requerido para merge)
-    ci-success:
-        name: ✅ CI Success
-        runs-on: ubuntu-latest
-        needs: [lint, test-unit, test-e2e, build, security, typecheck]
-        if: always()
-
-        steps:
-            - name: ✅ Check all jobs status
-              run: |
-                  if [[ "${{ needs.lint.result }}" != "success" ]] || \
-                     [[ "${{ needs.test-unit.result }}" != "success" ]] || \
-                     [[ "${{ needs.test-e2e.result }}" != "success" ]] || \
-                     [[ "${{ needs.build.result }}" != "success" ]] || \
-                     [[ "${{ needs.typecheck.result }}" != "success" ]]; then
-                    echo "❌ One or more required jobs failed"
-                    exit 1
-                  fi
-                  echo "✅ All required jobs passed successfully"
+    steps:
+      - name: ✅ Check all jobs status
+        run: |
+          if [[ "${{ needs.lint.result }}" != "success" ]] || \
+             [[ "${{ needs.test-unit.result }}" != "success" ]] || \
+             [[ "${{ needs.test-e2e.result }}" != "success" ]] || \
+             [[ "${{ needs.build.result }}" != "success" ]] || \
+             [[ "${{ needs.typecheck.result }}" != "success" ]]; then
+            echo "❌ One or more required jobs failed"
+            exit 1
+          fi
+          echo "✅ All required jobs passed successfully"
