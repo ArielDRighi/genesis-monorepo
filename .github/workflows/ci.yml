@@ -140,7 +140,7 @@ jobs:
         run: npm ci
 
       - name: 🗄️ Run database migrations
-        run: npm run migration:run
+        run: npm run migration:test:run
 
       - name: 🔗 Run E2E tests
         run: npm run test:e2e
@@ -234,7 +234,7 @@ jobs:
         run: npm ci
 
       - name: 📝 Run TypeScript compiler check
-        run: npm run build -- --noEmit
+        run: npm run typecheck
 
   # Job final: Status Check (requerido para merge)
   ci-success:
