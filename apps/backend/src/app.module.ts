@@ -3,14 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './modules/health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { databaseConfig } from './config';
+import { databaseConfig, configuration, validate } from './config';
 import { entities } from './database/database.utils';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [databaseConfig, configuration],
+      validate,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

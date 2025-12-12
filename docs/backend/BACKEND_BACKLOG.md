@@ -322,7 +322,7 @@ Configurar repositorio GitHub con GitHub Actions para CI (lint, test, build). Cr
 **Prioridad:** 🔴 CRÍTICA  
 **Estimación:** 1.5 horas  
 **Dependencias:** TASK-B-002  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADO  
 **HU Relacionada:** Configuración Inicial  
 **Marcador MVP:** ⭐⭐ **FUNDACIONAL**
 
@@ -334,7 +334,7 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
 
 **Tests necesarios:**
 
-- [ ] **Tests unitarios:**
+- [x] **Tests unitarios:**
   - App falla al iniciar sin `JWT_SECRET`
   - App falla al iniciar sin variables de DB
   - App inicia correctamente con todas las variables
@@ -344,8 +344,8 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
 
 #### ✅ Tareas específicas
 
-- [ ] Instalar `joi` para validación de schema
-- [ ] Crear `src/config/env.validation.ts` con schema Joi:
+- [x] Instalar `joi` para validación de schema
+- [x] Crear `src/config/env.validation.ts` con schema Joi:
   - `NODE_ENV`: development | production | test
   - `PORT`: número, default 3000
   - `DATABASE_*`: host, port, user, password, name (requeridos)
@@ -354,17 +354,17 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
   - `ANTHROPIC_API_KEY`: string (opcional en desarrollo)
   - `STRIPE_*`: keys de Stripe (opcionales)
   - `FRONTEND_URL`: URL para CORS
-- [ ] Crear `src/config/configuration.ts` con interfaces TypeScript
-- [ ] Configurar `ConfigModule.forRoot()` con validación
-- [ ] Crear `.env.example` completo y documentado
-- [ ] Verificar que la app falla con mensaje claro si faltan variables
+- [x] Crear `src/config/configuration.ts` con interfaces TypeScript
+- [x] Configurar `ConfigModule.forRoot()` con validación
+- [x] Crear `.env.example` completo y documentado
+- [x] Verificar que la app falla con mensaje claro si faltan variables
 
 #### 🎯 Criterios de aceptación
 
-- [ ] App no inicia sin variables requeridas
-- [ ] Mensaje de error indica qué variable falta
-- [ ] `.env.example` documenta todas las variables con descripciones
-- [ ] ConfigService tiene tipos correctos (no `any`)
+- [x] App no inicia sin variables requeridas
+- [x] Mensaje de error indica qué variable falta
+- [x] `.env.example` documenta todas las variables con descripciones
+- [x] ConfigService tiene tipos correctos (no `any`)
 
 ---
 
