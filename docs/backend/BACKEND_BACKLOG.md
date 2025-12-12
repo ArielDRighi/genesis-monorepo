@@ -370,13 +370,13 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
 
 ## 📊 Resumen de Progreso - Fase 0
 
-| Task ID    | Título                               | Prioridad  | Estado          | Estimación |
-| ---------- | ------------------------------------ | ---------- | --------------- | ---------- |
-| TASK-B-001 | Inicialización Monorepo + NestJS     | 🔴 CRÍTICA | ✅ COMPLETADA   | 3h         |
-| TASK-B-002 | PostgreSQL (Docker) + TypeORM        | 🔴 CRÍTICA | ✅ COMPLETADA   | 3h         |
-| TASK-B-003 | Autenticación JWT                    | 🔴 CRÍTICA | ✅ COMPLETADA   | 4h         |
-| TASK-B-004 | GitHub + CI/CD                       | 🟡 MEDIA   | ✅ COMPLETADA   | 2h         |
-| TASK-B-005 | Configuración y Variables de Entorno | 🔴 CRÍTICA | 🔲 PENDIENTE    | 1.5h       |
+| Task ID    | Título                               | Prioridad  | Estado        | Estimación |
+| ---------- | ------------------------------------ | ---------- | ------------- | ---------- |
+| TASK-B-001 | Inicialización Monorepo + NestJS     | 🔴 CRÍTICA | ✅ COMPLETADA | 3h         |
+| TASK-B-002 | PostgreSQL (Docker) + TypeORM        | 🔴 CRÍTICA | ✅ COMPLETADA | 3h         |
+| TASK-B-003 | Autenticación JWT                    | 🔴 CRÍTICA | ✅ COMPLETADA | 4h         |
+| TASK-B-004 | GitHub + CI/CD                       | 🟡 MEDIA   | ✅ COMPLETADA | 2h         |
+| TASK-B-005 | Configuración y Variables de Entorno | 🔴 CRÍTICA | 🔲 PENDIENTE  | 1.5h       |
 
 **Total Fase 0:** 13.5 horas estimadas | **Completado:** 12h (88.9%)
 
