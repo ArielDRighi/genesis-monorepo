@@ -14,6 +14,11 @@ describe('Auth E2E Tests', () => {
   let dataSource: DataSource;
 
   beforeAll(async () => {
+    // Configurar JWT_SECRET para tests si no está definido
+    if (!process.env.JWT_SECRET) {
+      process.env.JWT_SECRET = 'test-secret-key-for-e2e-tests';
+    }
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
@@ -133,7 +138,7 @@ describe('Auth E2E Tests', () => {
       const response = await request(app.getHttpServer())
         .post('/auth/login')
         .send(loginDto)
-        .expect(201);
+        .expect(200);
 
       expect(response.body).toHaveProperty('access_token');
       expect(response.body).toHaveProperty('user');

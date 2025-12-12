@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConflictException, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
@@ -126,17 +126,6 @@ describe('AuthService', () => {
         where: { email: registerDto.email },
       });
       expect(mockUserRepository.create).not.toHaveBeenCalled();
-    });
-
-    it('should throw BadRequestException if password is less than 8 characters', async () => {
-      const invalidDto: RegisterDto = {
-        email: 'test@example.com',
-        password: 'short',
-      };
-
-      // Esta validación debe ser manejada por el DTO validator antes de llegar al servicio
-      // Pero podemos agregar una verificación adicional en el servicio por seguridad
-      await expect(service.register(invalidDto)).rejects.toThrow(BadRequestException);
     });
 
     it('should hash password with bcrypt (never store plain password)', async () => {

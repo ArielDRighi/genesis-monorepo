@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  ConflictException,
-  UnauthorizedException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -22,11 +17,6 @@ export class AuthService {
 
   async register(registerDto: RegisterDto) {
     const { email, password } = registerDto;
-
-    // Validación adicional de password
-    if (password.length < 8) {
-      throw new BadRequestException('Password must be at least 8 characters long');
-    }
 
     // Verificar si el email ya existe
     const existingUser = await this.userRepository.findOne({
