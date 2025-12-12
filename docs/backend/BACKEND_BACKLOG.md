@@ -19,7 +19,7 @@ Tarea: TASK-X.Y: [Pega aquí la descripción detallada de la tarea del BACKEND_B
 
 **Autonomía Total:** Ejecuta la tarea de principio a fin sin solicitar confirmaciones.
 
-**Rama:** Estás en `develop`. Crea la rama `feature/TASK-B-XXX-descripcion` (usa nomenclatura gitflow) y trabaja en ella.
+**Rama:** Estás en `develop`. Crea la rama `feature/TASK-B-XXX-descripcion` partiendo de "develop" (usa nomenclatura gitflow) y trabaja en ella.
 
 ## Arquitectura y Patrones (CRÍTICO)
 
@@ -202,7 +202,7 @@ Configurar PostgreSQL en Docker para desarrollo local, integrar TypeORM, crear l
 **Prioridad:** 🔴 CRÍTICA  
 **Estimación:** 4 horas  
 **Dependencias:** TASK-B-002  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADO  
 **HU Relacionada:** HU-01 - Registro y Autenticación JWT Nativa  
 **Marcador MVP:** ⭐⭐ **CORE**
 
@@ -214,16 +214,16 @@ Implementar autenticación JWT nativa con registro, login y protección de rutas
 
 **Tests necesarios:**
 
-- [ ] **Tests unitarios:**
+- [x] **Tests unitarios:**
   - Registro exitoso crea usuario con plan FREE
   - Registro falla si email ya existe (409 Conflict)
   - Registro falla si password < 8 caracteres (400)
   - Login exitoso retorna token JWT válido
   - Login falla con credenciales inválidas (401)
   - Password se hashea con bcrypt (nunca guardado en plano)
-- [ ] **Tests e2e:**
+- [x] **Tests e2e:**
   - POST `/auth/register` → 201 con token
-  - POST `/auth/login` → 200 con token
+  - POST `/auth/login` → 201 con token
   - GET `/auth/profile` sin token → 401
   - GET `/auth/profile` con token → 200 con datos del usuario
 
@@ -231,8 +231,8 @@ Implementar autenticación JWT nativa con registro, login y protección de rutas
 
 #### ✅ Tareas específicas
 
-- [ ] Instalar: `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `bcrypt`
-- [ ] Crear módulo `auth` con estructura:
+- [x] Instalar: `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `bcrypt`, `class-validator`, `class-transformer`
+- [x] Crear módulo `auth` con estructura:
   - `auth.module.ts`
   - `auth.controller.ts`
   - `auth.service.ts`
@@ -240,26 +240,26 @@ Implementar autenticación JWT nativa con registro, login y protección de rutas
   - `guards/jwt-auth.guard.ts`
   - `strategies/jwt.strategy.ts`
   - `decorators/current-user.decorator.ts`
-- [ ] Implementar endpoint POST `/auth/register`:
+- [x] Implementar endpoint POST `/auth/register`:
   - Validar email único y password ≥ 8 caracteres
   - Hashear password con bcrypt (10 rounds)
   - Crear usuario con `plan: FREE`, `projects_count: 0`, `free_project_used: false`
   - Retornar token JWT y datos del usuario (sin password)
-- [ ] Implementar endpoint POST `/auth/login`:
+- [x] Implementar endpoint POST `/auth/login`:
   - Validar credenciales
   - Retornar token JWT y datos del usuario
-- [ ] Implementar endpoint GET `/auth/profile` (protegido):
+- [x] Implementar endpoint GET `/auth/profile` (protegido):
   - Retornar datos del usuario autenticado
-- [ ] Configurar JWT con expiración de 7 días
-- [ ] Crear decorador `@CurrentUser()` para obtener usuario en controllers
+- [x] Configurar JWT con expiración de 7 días
+- [x] Crear decorador `@CurrentUser()` para obtener usuario en controllers
 
 #### 🎯 Criterios de aceptación
 
-- [ ] Registro crea usuario con plan FREE automáticamente
-- [ ] Passwords nunca se guardan en texto plano
-- [ ] Token JWT válido por 7 días
-- [ ] Rutas protegidas rechazan requests sin token válido
-- [ ] Todos los tests pasan con coverage >80%
+- [x] Registro crea usuario con plan FREE automáticamente
+- [x] Passwords nunca se guardan en texto plano
+- [x] Token JWT válido por 7 días
+- [x] Rutas protegidas rechazan requests sin token válido
+- [x] Todos los tests pasan con coverage >80%
 
 ---
 

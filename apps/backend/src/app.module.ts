@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './modules/health/health.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { databaseConfig } from './config';
 import { entities } from './database/database.utils';
 
@@ -27,6 +28,7 @@ import { entities } from './database/database.utils';
       }),
     }),
     HealthModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

@@ -6,10 +6,7 @@ import { User } from '../modules/users/entities';
  * @param defaultPort - Default port if invalid or missing
  * @returns Valid port number between 1-65535
  */
-export function parsePort(
-  portStr: string | undefined,
-  defaultPort: number,
-): number {
+export function parsePort(portStr: string | undefined, defaultPort: number): number {
   const port = parseInt(portStr || '', 10);
   if (Number.isInteger(port) && port >= 1 && port <= 65535) {
     return port;
