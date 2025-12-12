@@ -3,15 +3,11 @@ name: Backend CI
 on:
   push:
     branches:
-      - develop
-      - main
+      - "**" # Ejecutar en todos los branches
     paths:
       - "apps/backend/**"
       - ".github/workflows/ci.yml"
   pull_request:
-    branches:
-      - develop
-      - main
     paths:
       - "apps/backend/**"
       - ".github/workflows/ci.yml"
