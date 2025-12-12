@@ -102,7 +102,7 @@ develop (desarrollo)
 ### 1. Crear una nueva feature
 
 ```bash
-# Asegurarte de estar en develop actualizado
+# Asegúrate de estar en develop actualizado
 git checkout develop
 git pull origin develop
 

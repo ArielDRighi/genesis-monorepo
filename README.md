@@ -55,14 +55,14 @@ Antes de comenzar, asegúrate de tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <repository-url>
-cd GENESIS
+git clone https://github.com/ArielDRighi/genesis-monorepo.git
+cd genesis-monorepo
 ```
 
 ### 2. Instalar dependencias
 
 ```bash
-# Instalar dependencias del backend
+# Desde la raíz del monorepo
 cd apps/backend
 npm install
 ```
@@ -302,10 +302,10 @@ Desarrollado con ❤️ por el equipo de GENESIS
 
 ## 📞 Soporte
 
-Para preguntas o soporte, contacta a:
+Para preguntas o soporte:
 
-- Email: support@genesis.dev
-- Issues: [GitHub Issues](<repository-url>/issues)
+- Issues: [GitHub Issues](https://github.com/ArielDRighi/genesis-monorepo/issues)
+- Pull Requests: [Contribuciones bienvenidas](https://github.com/ArielDRighi/genesis-monorepo/pulls)
 
 ---
 
