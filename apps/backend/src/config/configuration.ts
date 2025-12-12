@@ -51,16 +51,16 @@ export const configuration = registerAs(
       port: parseInt(process.env.PORT || '3000', 10),
     },
     database: {
-      host: process.env.DATABASE_HOST || 'localhost',
-      port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-      username: process.env.DATABASE_USER || 'postgres',
-      password: process.env.DATABASE_PASSWORD || 'postgres',
-      database: process.env.DATABASE_NAME || 'genesis_db',
+      host: process.env.DATABASE_HOST!,
+      port: parseInt(process.env.DATABASE_PORT || '5434', 10),
+      username: process.env.DATABASE_USER!,
+      password: process.env.DATABASE_PASSWORD!,
+      database: process.env.DATABASE_NAME!,
       synchronize: false,
       logging: process.env.NODE_ENV === 'development',
     },
     jwt: {
-      secret: process.env.JWT_SECRET || '',
+      secret: process.env.JWT_SECRET!,
       expiration: process.env.JWT_EXPIRATION || '7d',
     },
     stripe: {
