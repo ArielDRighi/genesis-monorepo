@@ -268,7 +268,7 @@ Implementar autenticación JWT nativa con registro, login y protección de rutas
 **Prioridad:** 🟡 MEDIA  
 **Estimación:** 2 horas  
 **Dependencias:** TASK-B-001  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADA  
 **HU Relacionada:** Configuración Inicial  
 **Marcador MVP:** ⭐ **RECOMENDADO**
 
@@ -280,7 +280,7 @@ Configurar repositorio GitHub con GitHub Actions para CI (lint, test, build). Cr
 
 **Tests necesarios:**
 
-- [ ] **Tests de CI:**
+- [x] **Tests de CI:**
   - Pipeline ejecuta lint sin errores
   - Pipeline ejecuta tests sin errores
   - Pipeline compila el proyecto sin errores
@@ -289,29 +289,31 @@ Configurar repositorio GitHub con GitHub Actions para CI (lint, test, build). Cr
 
 #### ✅ Tareas específicas
 
-- [ ] Crear `.gitignore` completo para NestJS
-- [ ] Crear `.github/workflows/ci.yml` con jobs:
+- [x] Crear `.gitignore` completo para NestJS
+- [x] Crear `.github/workflows/ci.yml` con jobs:
   - Checkout código
   - Setup Node.js 20
   - Install dependencies
   - Run lint
   - Run tests con PostgreSQL service
   - Run build
-- [ ] Crear `README.md` con:
+  - **🔧 CORRECCIÓN APLICADA:** Pipeline ejecuta en **todos los branches** y **todos los PRs**
+- [x] Crear `README.md` con:
   - Descripción del proyecto
   - Requisitos (Node 20+, PostgreSQL 15+)
   - Instrucciones de instalación
   - Variables de entorno
   - Comandos disponibles
-- [ ] Crear `CONTRIBUTING.md` con guía de ramas (gitflow)
-- [ ] Verificar ESLint y Prettier configurados correctamente
+- [x] Crear `CONTRIBUTING.md` con guía de ramas (gitflow)
+- [x] Verificar ESLint y Prettier configurados correctamente
 
 #### 🎯 Criterios de aceptación
 
-- [ ] Push a `develop` ejecuta pipeline de CI
-- [ ] Pipeline pasa completamente (lint + test + build)
-- [ ] README documenta setup completo del proyecto
-- [ ] CONTRIBUTING explica flujo de trabajo con ramas
+- [x] Push a cualquier branch ejecuta pipeline de CI
+- [x] PRs ejecutan pipeline de CI
+- [x] Pipeline pasa completamente (lint + test + build)
+- [x] README documenta setup completo del proyecto
+- [x] CONTRIBUTING explica flujo de trabajo con ramas
 
 ---
 
@@ -368,15 +370,15 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
 
 ## 📊 Resumen de Progreso - Fase 0
 
-| Task ID    | Título                               | Prioridad  | Estado       | Estimación |
-| ---------- | ------------------------------------ | ---------- | ------------ | ---------- |
-| TASK-B-001 | Inicialización Monorepo + NestJS     | 🔴 CRÍTICA | 🔲 PENDIENTE | 3h         |
-| TASK-B-002 | PostgreSQL (Docker) + TypeORM        | 🔴 CRÍTICA | 🔲 PENDIENTE | 3h         |
-| TASK-B-003 | Autenticación JWT                    | 🔴 CRÍTICA | 🔲 PENDIENTE | 4h         |
-| TASK-B-004 | GitHub + CI/CD                       | 🟡 MEDIA   | 🔲 PENDIENTE | 2h         |
-| TASK-B-005 | Configuración y Variables de Entorno | 🔴 CRÍTICA | 🔲 PENDIENTE | 1.5h       |
+| Task ID    | Título                               | Prioridad  | Estado        | Estimación |
+| ---------- | ------------------------------------ | ---------- | ------------- | ---------- |
+| TASK-B-001 | Inicialización Monorepo + NestJS     | 🔴 CRÍTICA | ✅ COMPLETADA | 3h         |
+| TASK-B-002 | PostgreSQL (Docker) + TypeORM        | 🔴 CRÍTICA | ✅ COMPLETADA | 3h         |
+| TASK-B-003 | Autenticación JWT                    | 🔴 CRÍTICA | ✅ COMPLETADA | 4h         |
+| TASK-B-004 | GitHub + CI/CD                       | 🟡 MEDIA   | ✅ COMPLETADA | 2h         |
+| TASK-B-005 | Configuración y Variables de Entorno | 🔴 CRÍTICA | 🔲 PENDIENTE  | 1.5h       |
 
-**Total Fase 0:** 13.5 horas estimadas
+**Total Fase 0:** 13.5 horas estimadas | **Completado:** 12h (88.9%)
 
 ---
 
