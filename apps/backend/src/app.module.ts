@@ -3,28 +3,29 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './modules/health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { databaseConfig } from './config';
+import { configuration, validate } from './config';
 import { entities } from './database/database.utils';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [configuration],
+      validate,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.database'),
+        host: configService.get<string>('config.database.host'),
+        port: configService.get<number>('config.database.port'),
+        username: configService.get<string>('config.database.username'),
+        password: configService.get<string>('config.database.password'),
+        database: configService.get<string>('config.database.database'),
         entities,
         synchronize: false,
-        logging: configService.get<boolean>('database.logging'),
+        logging: configService.get<boolean>('config.database.logging'),
       }),
     }),
     HealthModule,
