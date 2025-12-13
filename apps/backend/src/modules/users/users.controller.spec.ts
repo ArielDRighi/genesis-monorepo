@@ -47,7 +47,7 @@ describe('UsersController', () => {
     it('should return current user data', async () => {
       usersService.findById.mockResolvedValue(mockUser);
 
-      const result = await controller.getMe({ sub: mockUser.id });
+      const result = await controller.getMe({ id: mockUser.id });
 
       expect(result).toBeDefined();
       expect(usersService.findById).toHaveBeenCalledTimes(1);
@@ -61,7 +61,7 @@ describe('UsersController', () => {
 
       usersService.updateUser.mockResolvedValue(updatedUser);
 
-      const result = await controller.updateMe({ sub: mockUser.id }, updateDto);
+      const result = await controller.updateMe({ id: mockUser.id }, updateDto);
 
       expect(result).toBeDefined();
       expect(usersService.updateUser).toHaveBeenCalledTimes(1);
