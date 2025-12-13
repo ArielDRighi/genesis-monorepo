@@ -39,17 +39,18 @@ export class UsersService {
   }
 
   async incrementProjectCount(userId: string): Promise<User> {
-    const user = await this.findById(userId);
-
-    user.projectsCount += 1;
-
-    return this.userRepository.save(user);
+    // Use atomic increment to avoid race conditions
+    await this.userRepository.increment({ id: userId }, 'projectsCount', 1);
+    return this.findById(userId);
   }
 
   async updateUser(userId: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findById(userId);
 
-    Object.assign(user, updateUserDto);
+    // Explicitly set only allowed fields to prevent security issues
+    if (typeof updateUserDto.hasCompletedOnboarding !== 'undefined') {
+      user.hasCompletedOnboarding = updateUserDto.hasCompletedOnboarding;
+    }
 
     return this.userRepository.save(user);
   }

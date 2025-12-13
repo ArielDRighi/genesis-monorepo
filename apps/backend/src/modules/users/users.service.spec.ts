@@ -31,6 +31,7 @@ describe('UsersService', () => {
           useValue: {
             findOne: jest.fn(),
             save: jest.fn(),
+            increment: jest.fn(),
           },
         },
       ],
@@ -114,22 +115,28 @@ describe('UsersService', () => {
   });
 
   describe('incrementProjectCount', () => {
-    it('should increment projectsCount by 1', async () => {
+    it('should increment projectsCount by 1 using atomic operation', async () => {
       const updatedUser = {
         ...mockUser,
         projectsCount: 1,
       };
 
-      userRepository.findOne.mockResolvedValue(mockUser);
-      userRepository.save.mockResolvedValue(updatedUser);
+      userRepository.increment = jest.fn().mockResolvedValue(undefined);
+      userRepository.findOne.mockResolvedValue(updatedUser);
 
       const result = await service.incrementProjectCount(mockUser.id);
 
       expect(result.projectsCount).toBe(1);
-      expect(userRepository.save).toHaveBeenCalledTimes(1);
+      expect(userRepository.increment).toHaveBeenCalledWith(
+        { id: mockUser.id },
+        'projectsCount',
+        1,
+      );
+      expect(userRepository.findOne).toHaveBeenCalledTimes(1);
     });
 
     it('should throw NotFoundException when user does not exist', async () => {
+      userRepository.increment = jest.fn().mockResolvedValue(undefined);
       userRepository.findOne.mockResolvedValue(null);
 
       await expect(service.incrementProjectCount('non-existent-id')).rejects.toThrow(
