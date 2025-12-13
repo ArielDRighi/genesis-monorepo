@@ -19,6 +19,15 @@ describe('Auth E2E Tests', () => {
       process.env.JWT_SECRET = 'test-secret-key-for-e2e-tests';
     }
 
+    // Safety check: ensure we're not running against a production database
+    const dbName = process.env.DATABASE_NAME || process.env.DB_NAME || 'genesis_testing_db';
+    if (!dbName.toLowerCase().includes('test')) {
+      throw new Error(
+        `Safety check failed: Database name '${dbName}' does not contain 'test'. ` +
+          'E2E tests should only run against test databases.',
+      );
+    }
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
@@ -27,7 +36,7 @@ describe('Auth E2E Tests', () => {
           port: parseInt(process.env.DATABASE_PORT || process.env.DB_PORT || '5432', 10),
           username: process.env.DATABASE_USER || process.env.DB_USERNAME || 'postgres',
           password: process.env.DATABASE_PASSWORD || process.env.DB_PASSWORD || 'postgres',
-          database: process.env.DATABASE_NAME || process.env.DB_NAME || 'genesis_testing_db',
+          database: dbName,
           entities: [User],
           synchronize: true,
           dropSchema: true,

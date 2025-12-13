@@ -72,7 +72,6 @@ describe('AuthService', () => {
         plan: UserPlan.FREE,
         projectsCount: 0,
         freeProjectUsed: false,
-        tasksCount: 0,
         quotaResetDate: null,
         hasCompletedOnboarding: false,
         createdAt: new Date(),
