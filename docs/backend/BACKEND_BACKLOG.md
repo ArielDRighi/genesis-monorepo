@@ -391,7 +391,7 @@ Implementar validación estricta de variables de entorno con Joi. La aplicación
 **Prioridad:** 🔴 CRÍTICA  
 **Estimación:** 3 horas  
 **Dependencias:** TASK-B-002, TASK-B-003  
-**Estado:** 🔲 PENDIENTE  
+**Estado:** ✅ COMPLETADO  
 **HU Relacionada:** HU-13 - Gestión de Planes y Validación de Cuotas  
 **Marcador MVP:** ⭐⭐ **CORE**
 
@@ -403,12 +403,12 @@ Crear módulo `users` completo con endpoints CRUD y lógica de planes. Implement
 
 **Tests necesarios:**
 
-- [ ] **Tests unitarios:**
+- [x] **Tests unitarios:**
   - `getUserById` retorna usuario con todos los campos de plan
   - `updatePlan` actualiza correctamente el plan y fecha de renovación
   - Usuario FREE tiene `free_project_used` inicializado en false
   - Enum de planes solo acepta valores válidos
-- [ ] **Tests e2e:**
+- [x] **Tests e2e:**
   - GET `/users/me` retorna datos del usuario autenticado con info de plan
   - PATCH `/users/me` permite actualizar campos permitidos
 
@@ -416,23 +416,27 @@ Crear módulo `users` completo con endpoints CRUD y lógica de planes. Implement
 
 #### ✅ Tareas específicas
 
-- [ ] Crear módulo `users` con estructura feature-based
-- [ ] Completar entidad `User` con campos de cuota:
+- [x] Crear módulo `users` con estructura feature-based
+- [x] Completar entidad `User` con campos de cuota:
   - `plan` (enum: FREE, BASIC, PRO)
-  - `projects_count`, `tasks_count` (integers)
-  - `free_project_used` (boolean)
+  - `projects_count` (integer, default 0)
+  - `free_project_used` (boolean, default false)
   - `quota_reset_date` (timestamp nullable)
-- [ ] Crear DTOs: `user-response.dto.ts`, `update-user.dto.ts`
-- [ ] Implementar `UsersService` con métodos: `findById`, `findByEmail`, `updatePlan`, `incrementProjectCount`
-- [ ] Implementar endpoint GET `/users/me` (datos del usuario autenticado)
-- [ ] Implementar endpoint PATCH `/users/me` (actualizar perfil)
-- [ ] Excluir `password` de todas las respuestas usando `class-transformer`
+  - **🔧 CORRECCIÓN:** NO incluir `tasks_count` - las tareas se cuentan por proyecto, no globalmente
+- [x] Crear DTOs: `user-response.dto.ts`, `update-user.dto.ts`
+- [x] Implementar `UsersService` con métodos: `findById`, `findByEmail`, `updatePlan`, `incrementProjectCount`, `updateUser`
+- [x] Implementar endpoint GET `/users/me` (datos del usuario autenticado)
+- [x] Implementar endpoint PATCH `/users/me` (actualizar perfil)
+- [x] Excluir `password` de todas las respuestas usando `class-transformer`
+- [x] Crear migración para eliminar columna `tasks_count`
 
 #### 🎯 Criterios de aceptación
 
-- [ ] Endpoint `/users/me` retorna usuario sin password
-- [ ] Campos de plan y cuota se inicializan correctamente al crear usuario
-- [ ] Todos los tests pasan con coverage >80%
+- [x] Endpoint `/users/me` retorna usuario sin password
+- [x] Campos de plan y cuota se inicializan correctamente al crear usuario
+- [x] Todos los tests pasan con coverage >80% (52 unit tests, 20 e2e tests)
+- [x] Migración ejecutada correctamente
+- [x] Configuración de ESLint actualizada para archivos de test
 
 ---
 
@@ -639,15 +643,16 @@ Implementar job programado que resetee contadores de cuota para usuarios de pago
 
 ## 📊 Resumen de Progreso - Fase 1
 
-| Task ID    | Título                        | Prioridad  | Estado       | Estimación |
-| ---------- | ----------------------------- | ---------- | ------------ | ---------- |
-| TASK-B-006 | Módulo de Usuarios            | 🔴 CRÍTICA | 🔲 PENDIENTE | 3h         |
-| TASK-B-007 | Guard de Validación de Cuotas | 🔴 CRÍTICA | 🔲 PENDIENTE | 3h         |
-| TASK-B-008 | Rate Limiting con PostgreSQL  | 🔴 CRÍTICA | 🔲 PENDIENTE | 3h         |
-| TASK-B-009 | Módulo de Proyectos           | 🔴 CRÍTICA | 🔲 PENDIENTE | 4h         |
-| TASK-B-010 | Job de Renovación de Cuotas   | 🟡 MEDIA   | 🔲 PENDIENTE | 2h         |
+| Task ID    | Título                        | Prioridad  | Estado        | Estimación |
+| ---------- | ----------------------------- | ---------- | ------------- | ---------- |
+| TASK-B-006 | Módulo de Usuarios            | 🔴 CRÍTICA | ✅ COMPLETADO | 3h         |
+| TASK-B-007 | Guard de Validación de Cuotas | 🔴 CRÍTICA | 🔲 PENDIENTE  | 3h         |
+| TASK-B-008 | Rate Limiting con PostgreSQL  | 🔴 CRÍTICA | 🔲 PENDIENTE  | 3h         |
+| TASK-B-009 | Módulo de Proyectos           | 🔴 CRÍTICA | 🔲 PENDIENTE  | 4h         |
+| TASK-B-010 | Job de Renovación de Cuotas   | 🟡 MEDIA   | 🔲 PENDIENTE  | 2h         |
 
-**Total Fase 1:** 15 horas estimadas
+**Total Fase 1:** 15 horas estimadas  
+**Progreso:** 1/5 tareas completadas (20%)
 
 ---
 
