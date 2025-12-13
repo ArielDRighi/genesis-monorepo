@@ -107,9 +107,18 @@ export class AuthService {
       return null;
     }
 
-    // Retornar usuario sin password
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = user;
-    return result;
+    // Retornar usuario sin password - simplemente retornar el usuario
+    // El guard y el decorador se encargan de extraer lo que necesitan
+    return {
+      id: user.id,
+      email: user.email,
+      plan: user.plan,
+      projectsCount: user.projectsCount,
+      freeProjectUsed: user.freeProjectUsed,
+      quotaResetDate: user.quotaResetDate,
+      hasCompletedOnboarding: user.hasCompletedOnboarding,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
   }
 }
