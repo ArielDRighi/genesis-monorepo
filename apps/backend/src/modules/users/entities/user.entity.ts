@@ -36,9 +36,6 @@ export class User {
   @Column({ type: 'boolean', default: false, name: 'free_project_used' })
   freeProjectUsed: boolean = false;
 
-  @Column({ type: 'integer', default: 0, name: 'tasks_count' })
-  tasksCount: number = 0;
-
   @Column({ type: 'timestamp', nullable: true, name: 'quota_reset_date' })
   quotaResetDate: Date | null = null;
 

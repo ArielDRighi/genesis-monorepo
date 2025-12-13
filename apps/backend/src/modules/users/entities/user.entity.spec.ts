@@ -9,7 +9,6 @@ describe('User Entity', () => {
       expect(user.plan).toBe(UserPlan.FREE);
       expect(user.projectsCount).toBe(0);
       expect(user.freeProjectUsed).toBe(false);
-      expect(user.tasksCount).toBe(0);
       expect(user.hasCompletedOnboarding).toBe(false);
     });
 
@@ -23,7 +22,6 @@ describe('User Entity', () => {
       user.plan = UserPlan.PRO;
       user.projectsCount = 5;
       user.freeProjectUsed = true;
-      user.tasksCount = 100;
       user.quotaResetDate = now;
       user.hasCompletedOnboarding = true;
       user.createdAt = now;
@@ -35,7 +33,6 @@ describe('User Entity', () => {
       expect(user.plan).toBe(UserPlan.PRO);
       expect(user.projectsCount).toBe(5);
       expect(user.freeProjectUsed).toBe(true);
-      expect(user.tasksCount).toBe(100);
       expect(user.quotaResetDate).toBe(now);
       expect(user.hasCompletedOnboarding).toBe(true);
       expect(user.createdAt).toBe(now);
@@ -73,11 +70,6 @@ describe('User Entity', () => {
     it('should have freeProjectUsed defaulting to false', () => {
       const user = new User();
       expect(user.freeProjectUsed).toBe(false);
-    });
-
-    it('should have tasksCount defaulting to 0', () => {
-      const user = new User();
-      expect(user.tasksCount).toBe(0);
     });
 
     it('should have hasCompletedOnboarding defaulting to false', () => {
